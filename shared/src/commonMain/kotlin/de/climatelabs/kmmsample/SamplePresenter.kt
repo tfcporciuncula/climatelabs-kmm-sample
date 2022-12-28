@@ -25,6 +25,9 @@ class SamplePresenter : Presenter<SamplePresenter.Model, SamplePresenter.Event>(
           Logger.d { "SamplePresenter (${this@SamplePresenter.hashCode()}) received OnPlus10ButtonClicked" }
           sendModel { copy(secondsElapsed = secondsElapsed + 10) }
         }
+        Event.OnNavigateClicked -> {
+          NavigationDispatcher.to(Destination.SimpleDestination)
+        }
       }
     }
 
@@ -43,5 +46,6 @@ class SamplePresenter : Presenter<SamplePresenter.Model, SamplePresenter.Event>(
   sealed interface Event {
     object OnMinus10ButtonClicked : Event
     object OnPlus10ButtonClicked : Event
+    object OnNavigateClicked : Event
   }
 }
