@@ -3,9 +3,15 @@ import shared
 
 @main
 struct iOSApp: App {
-	var body: some Scene {
-		WindowGroup {
-			ContentView(viewModel: ViewModel(presenter: SamplePresenter()))
-		}
-	}
+  @StateObject private var navigator = Navigator()
+
+  var body: some Scene {
+    WindowGroup {
+      NavigationStack(path: $navigator.path) {
+        ContentView(viewModel: ViewModel(presenter: SamplePresenter()))
+          .navigationDestinationWithNavigator()
+      }
+    }
+  }
 }
+
