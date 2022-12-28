@@ -39,5 +39,7 @@ dependencies {
   implementation("androidx.compose.foundation:foundation:1.2.1")
   implementation("androidx.compose.material:material:1.2.1")
   implementation("androidx.activity:activity-compose:1.5.1")
+  implementation("androidx.navigation:navigation-compose:2.5.3")
   implementation("dev.marcellogalhardo:retained-activity:0.16.0")
+  implementation("dev.marcellogalhardo:retained-navigation:0.16.0")
 }
