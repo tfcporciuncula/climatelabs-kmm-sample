@@ -17,6 +17,56 @@ struct ContentView: View {
       } label: {
         Text("Add 10 to counter")
       }
+      Button {
+        viewModel.onEvent(SamplePresenterEventOnNavigateClicked())
+      } label: {
+        Text("Navigate to simple destination")
+      }
+    }
+    .task { await viewModel.startNative() }
+  }
+}
+
+struct SimpleDestinationView: View {
+  @StateObject var viewModel: ViewModel<SimpleDestinationPresenter.Model, SimpleDestinationPresenterEvent>
+
+  var body: some View {
+    VStack {
+      Text("Simple destination")
+      let argText = Binding {
+        viewModel.model.argText
+      } set: { text in
+        viewModel.onEvent(SimpleDestinationPresenterEventOnArgTextChanged(text: text))
+      }
+      TextField("arg text here", text: argText)
+        .frame(width: 250)
+      Button {
+        viewModel.onEvent(SimpleDestinationPresenterEventOnNavigateToDestinationWithArgClicked())
+      } label: {
+        Text("Go to destination with arg")
+      }
+      .disabled(viewModel.model.argText.count == 0)
+      Button {
+        viewModel.onEvent(SimpleDestinationPresenterEventOnBackClicked())
+      } label: {
+        Text("Go back")
+      }
+    }
+    .task { await viewModel.startNative() }
+  }
+}
+
+struct DestinationWithArgView: View {
+  @StateObject var viewModel: ViewModel<DestinationWithArgPresenter.Model, DestinationWithArgPresenterEvent>
+
+  var body: some View {
+    VStack {
+      Text("Destination with arg, arg is \(viewModel.model.arg)")
+      Button {
+        viewModel.onEvent(DestinationWithArgPresenterEventOnBackClicked())
+      } label: {
+        Text("Go back")
+      }
     }
     .task { await viewModel.startNative() }
   }
@@ -27,4 +77,3 @@ struct ContentView_Previews: PreviewProvider {
     ContentView(viewModel: ViewModel(model: SamplePresenter.Model(secondsElapsed: 20)))
   }
 }
-
