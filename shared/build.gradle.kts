@@ -22,6 +22,7 @@ kotlin {
       dependencies {
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
         api("co.touchlab:kermit:1.2.2")
+        api("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
       }
     }
     val commonTest by getting {

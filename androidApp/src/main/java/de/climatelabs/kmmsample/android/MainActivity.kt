@@ -23,6 +23,7 @@ import de.climatelabs.kmmsample.Destination
 import de.climatelabs.kmmsample.DestinationWithArgPresenter
 import de.climatelabs.kmmsample.SamplePresenter
 import de.climatelabs.kmmsample.SimpleDestinationPresenter
+import de.climatelabs.kmmsample.formatted
 import dev.marcellogalhardo.retained.activity.retain
 import dev.marcellogalhardo.retained.navigation.retain
 import kotlinx.coroutines.launch
@@ -91,6 +92,7 @@ private fun SampleScreen(presenter: SamplePresenter) {
     horizontalAlignment = Alignment.CenterHorizontally,
   ) {
     Text(text = "Counter: ${state.secondsElapsed}")
+    Text(text = "Today is ${state.today.formatted}")
     Button(onClick = { presenter.onEvent(SamplePresenter.Event.OnMinus10ButtonClicked) }) {
       Text(text = "Subtract 10 to counter")
     }

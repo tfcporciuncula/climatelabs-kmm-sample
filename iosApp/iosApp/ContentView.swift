@@ -7,6 +7,7 @@ struct ContentView: View {
   var body: some View {
     VStack {
       Text("Counter: \(viewModel.model.secondsElapsed)")
+      Text("Today is \(viewModel.model.today.formatted)")
       Button {
         viewModel.onEvent(SamplePresenterEventOnMinus10ButtonClicked())
       } label: {
@@ -74,6 +75,6 @@ struct DestinationWithArgView: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView(viewModel: ViewModel(model: SamplePresenter.Model(secondsElapsed: 20)))
+    ContentView(viewModel: ViewModel(model: SamplePresenter.Model(secondsElapsed: 20, today: DateTimeFactory.shared.instant())))
   }
 }

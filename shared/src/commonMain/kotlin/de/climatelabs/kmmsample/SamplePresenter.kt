@@ -5,6 +5,8 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 
 class SamplePresenter : Presenter<SamplePresenter.Model, SamplePresenter.Event>(Model()) {
 
@@ -41,6 +43,7 @@ class SamplePresenter : Presenter<SamplePresenter.Model, SamplePresenter.Event>(
 
   data class Model(
     val secondsElapsed: Int = 0,
+    val today: Instant = Clock.System.now(),
   )
 
   sealed interface Event {
