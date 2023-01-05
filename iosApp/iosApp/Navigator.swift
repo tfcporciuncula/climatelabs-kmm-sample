@@ -9,8 +9,8 @@ class Navigator: ObservableObject {
   init() {
     _ = Task {
       for try await request in asyncStream(for: NavigationDispatcher.shared.requestsNative) {
-        switch request.destination {
-        case is DestinationBack: path.removeLast()
+        switch onEnum(of: request.destination) {
+        case .Back: path.removeLast()
         default: path.append(request)
         }
       }
@@ -21,12 +21,12 @@ class Navigator: ObservableObject {
 extension View {
   @MainActor func navigationDestinationWithNavigator() -> some View {
     return navigationDestination(for: NavigationDispatcher.Request.self) { request in
-      switch request.destination {
-      case is DestinationSimpleDestination:
+      switch onEnum(of: request.destination) {
+      case .SimpleDestination:
         SimpleDestinationView(viewModel: ViewModel(presenter: SimpleDestinationPresenter()))
-      case let destinationWithArg as DestinationDestinationWithArg:
-        DestinationWithArgView(viewModel: ViewModel(presenter: DestinationWithArgPresenter(arg: destinationWithArg.arg)))
-      case is DestinationBack:
+      case .DestinationWithArg(let destination):
+        DestinationWithArgView(viewModel: ViewModel(presenter: DestinationWithArgPresenter(arg: destination.arg)))
+      case .Back:
         fatalError("Back is a special cases handled by the Navigator and doesn't map to any view.")
       default:
         fatalError("Invalid destination.")
