@@ -2,7 +2,7 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
-  @StateObject var viewModel: ViewModel<SamplePresenter.Model, SamplePresenterEvent>
+  @StateObject var viewModel: ViewModel<SampleModel, SamplePresenterEvent>
 
   var body: some View {
     VStack {
@@ -74,6 +74,6 @@ struct DestinationWithArgView: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView(viewModel: ViewModel(model: SamplePresenter.Model(secondsElapsed: 20)))
+    ContentView(viewModel: ViewModel(model: SampleModel(secondsElapsed: 20)))
   }
 }
