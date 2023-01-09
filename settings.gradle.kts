@@ -15,4 +15,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "climatelabs-kmm-sample"
 include(":androidApp")
+include(":androidApp:ui")
 include(":shared")
