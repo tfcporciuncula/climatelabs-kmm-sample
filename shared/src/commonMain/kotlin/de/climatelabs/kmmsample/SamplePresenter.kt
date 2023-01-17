@@ -43,10 +43,8 @@ class SamplePresenter : Presenter<SamplePresenter.Model, SamplePresenter.Event>(
     val secondsElapsed: Int = 0,
     val status: Status = Status.Idle,
   ) {
-    sealed interface Status {
-      object Idle : Status
-      object Loading : Status
-      object Error : Status
+    enum class Status {
+      Idle, Loading, Error
     }
   }
 

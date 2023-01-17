@@ -2,7 +2,7 @@ plugins {
   kotlin("multiplatform")
   id("com.android.library")
   id("com.rickclephas.kmp.nativecoroutines")
-  id("co.touchlab.skie").version("0.2.8")
+  id("co.touchlab.skie").version("0.2.10")
 }
 
 kotlin {
