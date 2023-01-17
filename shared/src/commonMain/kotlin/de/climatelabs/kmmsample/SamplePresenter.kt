@@ -6,7 +6,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
-class SamplePresenter : Presenter<SampleModel, SamplePresenter.Event>(SampleModel()) {
+class SamplePresenter : Presenter<SamplePresenter.Model, SamplePresenter.Event>(Model()) {
 
   init {
     Logger.d { "SamplePresenter (${hashCode()}) created" }
@@ -39,31 +39,20 @@ class SamplePresenter : Presenter<SampleModel, SamplePresenter.Event>(SampleMode
     }
   }
 
-//  data class Model(
-//    val secondsElapsed: Int = 0,
-//    val status: Status = Status.Idle,
-//  ) {
-//    sealed interface Status {
-//      object Idle : Status
-//      object Loading : Status
-//      object Error : Status
-//    }
-//  }
+  data class Model(
+    val secondsElapsed: Int = 0,
+    val status: Status = Status.Idle,
+  ) {
+    sealed interface Status {
+      object Idle : Status
+      object Loading : Status
+      object Error : Status
+    }
+  }
 
   sealed interface Event {
     object OnMinus10ButtonClicked : Event
     object OnPlus10ButtonClicked : Event
     object OnNavigateClicked : Event
-  }
-}
-
-data class SampleModel(
-  val secondsElapsed: Int = 0,
-  val status: Status = Status.Idle,
-) {
-  sealed interface Status {
-    object Idle : Status
-    object Loading : Status
-    object Error : Status
   }
 }
