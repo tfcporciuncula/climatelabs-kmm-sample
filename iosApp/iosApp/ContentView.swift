@@ -19,9 +19,24 @@ struct ContentView: View {
         Text("Add 10 to counter")
       }
       Button {
-        viewModel.onEvent(SamplePresenterEventOnNavigateClicked())
+        viewModel.onEvent(SamplePresenterEventOnNavigateButtonClicked())
       } label: {
         Text("Navigate to simple destination")
+      }
+
+      let sheetVisible = Binding {
+        viewModel.model.promptVisible
+      } set: { _ in
+        viewModel.onEvent(SamplePresenterEventOnPromptDismissed())
+      }
+
+      Button {
+        viewModel.onEvent(SamplePresenterEventOnPromptButtonClicked())
+      } label: {
+        Text("Show a sheet")
+      }
+      .sheet(isPresented: sheetVisible) {
+        Text("Hallo, I am a sheet!")
       }
     }
     .task { await viewModel.startNative() }
@@ -75,6 +90,7 @@ struct DestinationWithArgView: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView(viewModel: ViewModel(model: SamplePresenter.Model(secondsElapsed: 20, today: DateTimeFactory.shared.instant())))
+    let model = SamplePresenter.Model(secondsElapsed: 20, today: DateTimeFactory.shared.instant(), promptVisible: false)
+    ContentView(viewModel: ViewModel(model: model))
   }
 }

@@ -27,8 +27,14 @@ class SamplePresenter : Presenter<SamplePresenter.Model, SamplePresenter.Event>(
           Logger.d { "SamplePresenter (${this@SamplePresenter.hashCode()}) received OnPlus10ButtonClicked" }
           sendModel { copy(secondsElapsed = secondsElapsed + 10) }
         }
-        Event.OnNavigateClicked -> {
+        Event.OnNavigateButtonClicked -> {
           NavigationDispatcher.to(Destination.SimpleDestination)
+        }
+        Event.OnPromptButtonClicked -> {
+          sendModel { copy(promptVisible = true) }
+        }
+        Event.OnPromptDismissed -> {
+          sendModel { copy(promptVisible = false) }
         }
       }
     }
@@ -44,11 +50,14 @@ class SamplePresenter : Presenter<SamplePresenter.Model, SamplePresenter.Event>(
   data class Model(
     val secondsElapsed: Int = 0,
     val today: Instant = Clock.System.now(),
+    val promptVisible: Boolean = false,
   )
 
   sealed interface Event {
     object OnMinus10ButtonClicked : Event
     object OnPlus10ButtonClicked : Event
-    object OnNavigateClicked : Event
+    object OnNavigateButtonClicked : Event
+    object OnPromptButtonClicked : Event
+    object OnPromptDismissed : Event
   }
 }

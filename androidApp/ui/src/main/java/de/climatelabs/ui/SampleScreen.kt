@@ -3,6 +3,7 @@ package de.climatelabs.ui
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -15,10 +16,22 @@ import kotlinx.datetime.Instant
 fun SampleScreen(
   secondsElapsed: Int,
   today: Instant,
+  dialogVisible: Boolean,
   onMinus10ButtonClicked: () -> Unit,
   onPlus10ButtonClicked: () -> Unit,
   onNavigateButtonClicked: () -> Unit,
+  onDialogButtonClicked: () -> Unit,
+  onDialogDismissed: () -> Unit,
 ) {
+  if (dialogVisible) {
+    AlertDialog(
+      onDismissRequest = onDialogDismissed,
+      buttons = {},
+      title = { Text(text = "Hallo") },
+      text = { Text(text = "I am a dialog!") },
+    )
+  }
+
   Column(
     modifier = Modifier.fillMaxSize(),
     verticalArrangement = Arrangement.Center,
@@ -34,6 +47,9 @@ fun SampleScreen(
     }
     Button(onClick = onNavigateButtonClicked) {
       Text(text = "Navigate to simple destination")
+    }
+    Button(onClick = onDialogButtonClicked) {
+      Text(text = "Show a dialog")
     }
   }
 }

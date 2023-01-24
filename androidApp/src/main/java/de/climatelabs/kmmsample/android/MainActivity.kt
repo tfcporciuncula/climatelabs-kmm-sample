@@ -55,9 +55,12 @@ class MainActivity : ComponentActivity() {
               SampleScreen(
                 secondsElapsed = state.secondsElapsed,
                 today = state.today,
+                dialogVisible = state.promptVisible,
                 onMinus10ButtonClicked = { presenter.onEvent(SamplePresenter.Event.OnMinus10ButtonClicked) },
                 onPlus10ButtonClicked = { presenter.onEvent(SamplePresenter.Event.OnPlus10ButtonClicked) },
-                onNavigateButtonClicked = { presenter.onEvent(SamplePresenter.Event.OnNavigateClicked) },
+                onNavigateButtonClicked = { presenter.onEvent(SamplePresenter.Event.OnNavigateButtonClicked) },
+                onDialogButtonClicked = { presenter.onEvent(SamplePresenter.Event.OnPromptButtonClicked) },
+                onDialogDismissed = { presenter.onEvent(SamplePresenter.Event.OnPromptDismissed) },
               )
             }
             composable(route = Destination.SimpleDestination::class.route) {
